@@ -1,10 +1,12 @@
 package com.safakadir.basketballplayerapi.service;
 
+import com.safakadir.basketballplayerapi.exception.MaximumCapacityReachedException;
 import com.safakadir.basketballplayerapi.model.Player;
 import com.safakadir.basketballplayerapi.model.PlayerHistory;
 import com.safakadir.basketballplayerapi.model.PlayerPosition;
 import com.safakadir.basketballplayerapi.repository.PlayerHistoryRepository;
 import com.safakadir.basketballplayerapi.repository.PlayerRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,9 @@ import java.util.Optional;
 public class PlayerService {
     private final PlayerRepository playerRepository;
     private final PlayerHistoryRepository playerHistoryRepository;
+
+    @Value("${app.maxTeamSize}")
+    private int MAX_TEAM_SIZE;
 
     public PlayerService(PlayerRepository playerRepository,
                          PlayerHistoryRepository playerHistoryRepository) {
@@ -29,6 +34,11 @@ public class PlayerService {
 
     @Transactional
     public Player addPlayer(String name, String surname, PlayerPosition position) {
+        long count = playerRepository.count();
+        if(count >= MAX_TEAM_SIZE) {
+            throw new MaximumCapacityReachedException("The team size had already reached its maximum capacity: "+MAX_TEAM_SIZE);
+        }
+
         Player newPlayer = playerRepository.save(new Player(name, surname, position));
         playerHistoryRepository.save(new PlayerHistory(
                 newPlayer.getId(),

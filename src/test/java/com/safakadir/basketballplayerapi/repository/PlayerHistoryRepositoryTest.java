@@ -42,6 +42,28 @@ class PlayerHistoryRepositoryTest {
         assertEquals(currentMillis, found.getTimestamp().getTime());
         assertEquals(PlayerHistory.Operation.CREATE, found.getOperation());
         assertEquals("default", found.getUsername());
+    }
 
+    @Test
+    void shouldFindLatestByPlayerId() throws Exception{
+        Player player = new Player(1L, "Name", "Surname", PlayerPosition.C);
+        PlayerHistory saved1 = repository.save(new PlayerHistory(
+                player.getId(),
+                PlayerHistory.Operation.CREATE,
+                player,
+                new Timestamp(System.currentTimeMillis()),
+                "default"));
+        Thread.sleep(10);
+        PlayerHistory saved2 = repository.save(new PlayerHistory(
+                player.getId(),
+                PlayerHistory.Operation.DELETE,
+                player,
+                new Timestamp(System.currentTimeMillis()),
+                "default"));
+
+        PlayerHistory found = repository.findTopByPlayerIdOrderByTimestampDesc(player.getId());
+
+        assertNotNull(found);
+        assertEquals(found.getId(), saved2.getId());
     }
 }

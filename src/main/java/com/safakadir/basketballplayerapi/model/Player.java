@@ -1,6 +1,7 @@
 package com.safakadir.basketballplayerapi.model;
 
 import jakarta.persistence.*;
+import java.util.Objects;
 
 @Entity(name = "player")
 public class Player {
@@ -56,5 +57,13 @@ public class Player {
 
     public void setPosition(PlayerPosition position) {
         this.position = position;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return id == player.id && Objects.equals(name, player.name) && Objects.equals(surname, player.surname) && position == player.position;
     }
 }

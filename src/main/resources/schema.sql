@@ -14,4 +14,4 @@ CREATE TABLE player_history (
     username VARCHAR(50) NOT NULL
 );
 
-CREATE INDEX idx_player_history_player_id ON player_history (player_id);
+CREATE INDEX idx_player_history_player_id_timestamp ON player_history (player_id, timestamp);

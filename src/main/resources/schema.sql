@@ -1,0 +1,6 @@
+CREATE TABLE player (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    surname VARCHAR(50) NOT NULL,
+    position VARCHAR(2) NOT NULL
+);

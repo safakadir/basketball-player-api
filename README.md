@@ -14,7 +14,7 @@ A sample task to develop a Spring Boot application with GraphQL as a basketball 
 
 > $ mvn spring-boot:run
 
-### Running from Intellij Idea
+### Running from Intellij IDEA
 
 Open project and run it as *Spring Boot App* while *BasketballPlayerApiApplication* run configuration is selected.
 
@@ -26,6 +26,15 @@ Open project and run it as *Spring Boot App* while *BasketballPlayerApiApplicati
 - MySQL
 - H2 Database
 - Maven
+
+
+## GraphQL support for Intellij IDEA
+
+If [GraphQL plugin for Intellij IDEA](https://plugins.jetbrains.com/plugin/8097-graphql) is installed, then GraphQL language support is added to your ide. **".graphqlconfig"** file is used by this plugin. The plugin is useful when writing tests for GraphQL controller.
+
+Add following comment line before the literal string that should be interpreted as GraphQL:
+> // language=GraphQL
+
 
 
 ## Further Readings

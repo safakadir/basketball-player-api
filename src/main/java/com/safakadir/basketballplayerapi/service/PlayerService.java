@@ -1,6 +1,5 @@
 package com.safakadir.basketballplayerapi.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safakadir.basketballplayerapi.model.Player;
 import com.safakadir.basketballplayerapi.model.PlayerHistory;
 import com.safakadir.basketballplayerapi.model.PlayerPosition;
@@ -17,13 +16,11 @@ import java.util.Optional;
 public class PlayerService {
     private final PlayerRepository playerRepository;
     private final PlayerHistoryRepository playerHistoryRepository;
-    private final ObjectMapper objectMapper;
 
     public PlayerService(PlayerRepository playerRepository,
-                         PlayerHistoryRepository playerHistoryRepository, ObjectMapper objectMapper) {
+                         PlayerHistoryRepository playerHistoryRepository) {
         this.playerRepository = playerRepository;
         this.playerHistoryRepository = playerHistoryRepository;
-        this.objectMapper = objectMapper;
     }
 
     public List<Player> findAllPlayers() {

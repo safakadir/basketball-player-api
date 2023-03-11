@@ -3,15 +3,15 @@ type Query {
 }
 
 type Mutation {
-    addPlayer(name: String, surname: String, position: PlayerPosition): Player
-    deletePlayer(id: ID): Boolean
+    addPlayer(name: String!, surname: String!, position: PlayerPosition!): Player
+    deletePlayer(id: ID!): Boolean
 }
 
 type Player {
     id: ID!
-    name: String
-    surname: String
-    position: PlayerPosition
+    name: String!
+    surname: String!
+    position: PlayerPosition!
 }
 
 enum PlayerPosition {

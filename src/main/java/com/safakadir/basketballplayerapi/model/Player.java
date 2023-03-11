@@ -12,6 +12,20 @@ public class Player {
     @Enumerated(EnumType.STRING)
     private PlayerPosition position;
 
+    public Player() {
+    }
+
+    public Player(String name, String surname, PlayerPosition position) {
+        this.name = name;
+        this.surname = surname;
+        this.position = position;
+    }
+
+    public Player(long id, String name, String surname, PlayerPosition position) {
+        this(name, surname, position);
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }

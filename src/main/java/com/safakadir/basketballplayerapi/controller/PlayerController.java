@@ -25,12 +25,12 @@ public class PlayerController {
     }
 
     @MutationMapping
-    public Player addPlayer(@Argument String name, @Argument String surname, @Argument PlayerPosition position) throws Exception {
+    public Player addPlayer(@Argument String name, @Argument String surname, @Argument PlayerPosition position) {
         return playerService.addPlayer(name, surname, position);
     }
 
     @MutationMapping
-    public boolean deletePlayer(@Argument long id) throws Exception {
+    public boolean deletePlayer(@Argument long id) {
         return playerService.deletePlayer(id);
     }
 }

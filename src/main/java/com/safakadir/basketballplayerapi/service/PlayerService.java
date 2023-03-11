@@ -31,39 +31,31 @@ public class PlayerService {
     }
 
     @Transactional
-    public Player addPlayer(String name, String surname, PlayerPosition position) throws Exception {
-        Player newPlayer = playerRepository.save(createPlayer(name, surname, position));
-        playerHistoryRepository.save(cretePlayerHistoryRecord(newPlayer.getId(), newPlayer, PlayerHistory.Operation.CREATE));
+    public Player addPlayer(String name, String surname, PlayerPosition position) {
+        Player newPlayer = playerRepository.save(new Player(name, surname, position));
+        playerHistoryRepository.save(new PlayerHistory(
+                newPlayer.getId(),
+                PlayerHistory.Operation.CREATE,
+                newPlayer,
+                new Timestamp(System.currentTimeMillis()),
+                "default"));
         return newPlayer;
     }
 
     @Transactional
-    public boolean deletePlayer(long id) throws Exception {
+    public boolean deletePlayer(long id) {
         Optional<Player> existingPlayerOptional = playerRepository.findById(id);
         if (existingPlayerOptional.isPresent()) {
             Player existingPlayer = existingPlayerOptional.get();
             playerRepository.deleteById(id);
-            playerHistoryRepository.save(cretePlayerHistoryRecord(id, existingPlayer, PlayerHistory.Operation.DELETE));
+            playerHistoryRepository.save(new PlayerHistory(
+                    id,
+                    PlayerHistory.Operation.DELETE,
+                    existingPlayer,
+                    new Timestamp(System.currentTimeMillis()),
+                    "default"));
             return true;
         }
         return false;
-    }
-
-    private Player createPlayer(String name, String surname, PlayerPosition position) {
-        Player player = new Player();
-        player.setName(name);
-        player.setSurname(surname);
-        player.setPosition(position);
-        return player;
-    }
-
-    private PlayerHistory cretePlayerHistoryRecord(long id, Player player, PlayerHistory.Operation operation) throws Exception {
-        PlayerHistory record = new PlayerHistory();
-        record.setPlayerId(id);
-        record.setOperation(operation);
-        record.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        record.setUsername("default");
-        record.setData(objectMapper.writeValueAsString(player));
-        return record;
     }
 }

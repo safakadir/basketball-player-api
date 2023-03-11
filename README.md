@@ -12,11 +12,13 @@ A sample task to develop a Spring Boot application with GraphQL as a basketball 
 
 ### Running from terminal
 
-> $ mvn spring-boot:run
+> $ mvn spring-boot:run -Dspring-boot.run.profiles=dev
 
 ### Running from Intellij IDEA
 
-Open project and run it as *Spring Boot App* while *BasketballPlayerApiApplication* run configuration is selected.
+Add **dev** to profiles list inside *BasketballPlayerApiApplication* run configuration.
+
+Run it as *Spring Boot App* while *BasketballPlayerApiApplication* run configuration is selected.
 
 
 ## Tech Stack

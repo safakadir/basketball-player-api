@@ -1,9 +1,6 @@
 package com.safakadir.basketballplayerapi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity(name = "player")
 public class Player {
@@ -12,6 +9,7 @@ public class Player {
     private long id;
     private String name;
     private String surname;
+    @Enumerated(EnumType.STRING)
     private PlayerPosition position;
 
     public long getId() {

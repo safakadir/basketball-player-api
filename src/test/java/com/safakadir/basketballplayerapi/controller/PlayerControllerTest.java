@@ -40,7 +40,7 @@ class PlayerControllerTest {
     }
 
     @Test
-    void shouldRequestAddPlayerMutation() {
+    void shouldRequestAddPlayerMutation() throws Exception {
         // language=GraphQL
         String document = """
                 mutation {
@@ -59,7 +59,7 @@ class PlayerControllerTest {
     }
 
     @Test
-    void deletePlayer() {
+    void deletePlayer() throws Exception {
         // language=GraphQL
         String document = """
                 mutation {

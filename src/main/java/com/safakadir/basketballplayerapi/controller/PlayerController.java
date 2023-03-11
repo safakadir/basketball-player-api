@@ -3,14 +3,17 @@ package com.safakadir.basketballplayerapi.controller;
 import com.safakadir.basketballplayerapi.model.Player;
 import com.safakadir.basketballplayerapi.model.PlayerPosition;
 import com.safakadir.basketballplayerapi.service.PlayerService;
+import jakarta.validation.constraints.*;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
 @Controller
+@Validated
 public class PlayerController {
 
     private final PlayerService playerService;
@@ -25,7 +28,22 @@ public class PlayerController {
     }
 
     @MutationMapping
-    public Player addPlayer(@Argument String name, @Argument String surname, @Argument PlayerPosition position) {
+    public Player addPlayer(
+            @Argument
+            @NotBlank
+            @Pattern(regexp = "^[\\p{L}\s'\\.-]*$", message = "must contain only letters and allowed chars")
+            @Size(max=50)
+            String name,
+
+            @Argument
+            @NotBlank
+            @Pattern(regexp = "^[\\p{L}\s'\\.-]*$", message = "must contain only letters and allowed chars")
+            @Size(max=50)
+            String surname,
+
+            @Argument
+            @NotNull
+            PlayerPosition position) {
         return playerService.addPlayer(name, surname, position);
     }
 

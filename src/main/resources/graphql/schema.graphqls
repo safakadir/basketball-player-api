@@ -1,5 +1,12 @@
 type Query {
-    allPlayers: [Player]
+    allPlayers(page: Int!, pageSize: Int!): PlayerPage
+}
+
+type PlayerPage {
+    totalPages: Int!,
+    currentPage: Int!,
+    pageSize: Int!,
+    players: [Player]!
 }
 
 type Mutation {

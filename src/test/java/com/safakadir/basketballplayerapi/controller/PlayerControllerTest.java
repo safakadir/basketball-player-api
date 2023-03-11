@@ -25,18 +25,21 @@ class PlayerControllerTest {
         // language=GraphQL
         String document = """
                 query {
-                    allPlayers {
-                        id
-                        name
-                        surname
-                        position
+                    allPlayers(page: 0, pageSize: 10) {
+                        totalPages,
+                        players {
+                            id
+                            name
+                            surname
+                            position
+                        }
                     }
                 }
                 """;
         graphQlTester.document(document)
                 .execute();
 
-        verify(playerService, times(1)).findAllPlayers();
+        verify(playerService, times(1)).findAllPlayers(0, 10);
     }
 
     @Test

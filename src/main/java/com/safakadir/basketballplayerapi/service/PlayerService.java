@@ -3,10 +3,13 @@ package com.safakadir.basketballplayerapi.service;
 import com.safakadir.basketballplayerapi.exception.MaximumCapacityReachedException;
 import com.safakadir.basketballplayerapi.model.Player;
 import com.safakadir.basketballplayerapi.model.PlayerHistory;
+import com.safakadir.basketballplayerapi.model.PlayerPage;
 import com.safakadir.basketballplayerapi.model.PlayerPosition;
 import com.safakadir.basketballplayerapi.repository.PlayerHistoryRepository;
 import com.safakadir.basketballplayerapi.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,8 +31,9 @@ public class PlayerService {
         this.playerHistoryRepository = playerHistoryRepository;
     }
 
-    public List<Player> findAllPlayers() {
-        return playerRepository.findAll();
+    public PlayerPage findAllPlayers(int page, int pageSize) {
+        Page<Player> pageResult = playerRepository.findAll(PageRequest.of(page, pageSize));
+        return new PlayerPage(pageResult.toList(), pageResult.getTotalPages(), pageResult.getNumber(), pageSize);
     }
 
     @Transactional

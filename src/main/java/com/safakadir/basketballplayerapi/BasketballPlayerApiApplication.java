@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties(RsaJwtKeyProperties.class)
+@EnableConfigurationProperties({RsaJwtKeyProperties.class})
 public class BasketballPlayerApiApplication {
 
 	public static void main(String[] args) {

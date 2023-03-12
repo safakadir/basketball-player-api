@@ -1,5 +1,6 @@
 package com.safakadir.basketballplayerapi.controller;
 
+import com.safakadir.basketballplayerapi.config.RsaJwtKeyProperties;
 import com.safakadir.basketballplayerapi.model.PlayerPosition;
 import com.safakadir.basketballplayerapi.service.PlayerService;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,9 @@ import static org.mockito.Mockito.verify;
 
 @GraphQlTest(PlayerController.class)
 class PlayerControllerTest {
+
+    @MockBean
+    RsaJwtKeyProperties mockProperties;
 
     @Autowired
     GraphQlTester graphQlTester;

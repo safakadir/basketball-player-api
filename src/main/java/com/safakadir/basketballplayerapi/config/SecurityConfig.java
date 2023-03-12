@@ -47,9 +47,11 @@ public class SecurityConfig  {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/ping").permitAll();
-                    auth.anyRequest().authenticated();
+                    auth.requestMatchers("/**graphql**").authenticated();
+                    auth.requestMatchers("/token").authenticated();
+                    auth.anyRequest().permitAll();
                 })
+                .headers(headers -> headers.frameOptions().disable())
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(withDefaults())
